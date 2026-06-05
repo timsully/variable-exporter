@@ -507,17 +507,17 @@ html, body {
 }
 
 .splash__logo {
-  width: 96px;
-  height: 96px;
-  overflow: visible; /* let the SVG glow bleed outside */
+  width: 120px;
+  height: 120px;
+  overflow: visible;
   animation: logo-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* Container — overflow:visible so the SVG glow (which extends beyond 96px) is never cropped */
+/* Container — overflow:visible so the SVG glow (which extends beyond 120px) is never cropped */
 .splash__logo-ring {
   position: relative;
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
