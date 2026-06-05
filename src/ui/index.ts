@@ -52,7 +52,7 @@ function postMessage(msg: UIMessage) {
   parent.postMessage({ pluginMessage: msg }, '*');
 }
 
-const SPLASH_MIN_MS = 1500;
+const SPLASH_MIN_MS = 1000;
 const splashShownAt = Date.now();
 
 window.onmessage = (event: MessageEvent) => {
