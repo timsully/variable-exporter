@@ -163,21 +163,6 @@ function svgCheck(): SVGSVGElement {
   return svg;
 }
 
-function svgClose(): SVGSVGElement {
-  const ns = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(ns, 'svg') as SVGSVGElement;
-  svg.setAttribute('width', '12');
-  svg.setAttribute('height', '12');
-  svg.setAttribute('viewBox', '0 0 12 12');
-  svg.setAttribute('fill', 'none');
-  const path = document.createElementNS(ns, 'path');
-  path.setAttribute('d', 'M2 2L10 10M10 2L2 10');
-  path.setAttribute('stroke', 'currentColor');
-  path.setAttribute('stroke-width', '1.5');
-  path.setAttribute('stroke-linecap', 'round');
-  svg.appendChild(path);
-  return svg;
-}
 
 // ── Render ───────────────────────────────────────────────────────────────────
 
@@ -403,14 +388,8 @@ function render() {
 
   // Header
   const header = el('div', { className: 'header' });
-  const titleGroup = el('div', {});
-  titleGroup.appendChild(el('div', { className: 'header__title' }, 'Variable Exporter'));
-  titleGroup.appendChild(el('div', { className: 'header__subtitle' }, 'Export collections as CSS variables'));
-  const closeBtn = el('button', { className: 'btn-icon', title: 'Close' });
-  closeBtn.appendChild(svgClose());
-  closeBtn.addEventListener('click', () => postMessage({ type: 'close' }));
-  header.appendChild(titleGroup);
-  header.appendChild(closeBtn);
+  header.appendChild(el('div', { className: 'header__title' }, 'Variable Exporter'));
+  header.appendChild(el('div', { className: 'header__subtitle' }, 'Export collections as CSS variables'));
   app.appendChild(header);
 
   if (state.status === 'empty') {
