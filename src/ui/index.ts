@@ -52,6 +52,9 @@ function postMessage(msg: UIMessage) {
   parent.postMessage({ pluginMessage: msg }, '*');
 }
 
+const SPLASH_MIN_MS = 1500;
+const splashShownAt = Date.now();
+
 window.onmessage = (event: MessageEvent) => {
   const msg = event.data.pluginMessage as PluginMessage;
   if (!msg) return;
@@ -60,7 +63,10 @@ window.onmessage = (event: MessageEvent) => {
     state.collections = msg.collections;
     state.options.selectedCollections = msg.collections.map((c) => c.id);
     state.status = msg.collections.length === 0 ? 'empty' : 'ready';
-    hideSplash(() => render());
+
+    const elapsed = Date.now() - splashShownAt;
+    const remaining = Math.max(0, SPLASH_MIN_MS - elapsed);
+    setTimeout(() => hideSplash(() => render()), remaining);
   } else if (msg.type === 'error') {
     console.error('[Variable Exporter]', msg.message);
   }
