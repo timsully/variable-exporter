@@ -58,13 +58,24 @@
 }
 
 html {
-  height: 100%;
+  height: 100vh;
   background: var(--bg-app);
+}
+
+/* Fixed pseudo-element guarantees the bg covers the full viewport even if
+   percentage heights misbehave in Figma's webview */
+html::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: var(--bg-app);
+  z-index: -1;
 }
 
 body {
   width: 480px;
   height: 100%;
+  overflow: hidden;
   background: var(--bg-app);
   color: var(--text-primary);
   font-family: var(--font-sans);
