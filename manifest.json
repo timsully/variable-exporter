@@ -1,0 +1,9 @@
+{
+  "name": "Variable Exporter",
+  "id": "variable-exporter-dev",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page"
+}

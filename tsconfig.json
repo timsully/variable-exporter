@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["ES2017", "DOM"],
+    "module": "commonjs",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "moduleResolution": "node",
+    "typeRoots": ["./node_modules/@figma/plugin-typings", "./node_modules/@types"],
+    "outDir": "./dist"
+  },
+  "include": ["src"]
+}
