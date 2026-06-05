@@ -523,6 +523,7 @@ body {
 .splash__loader {
   display: flex;
   gap: 4px;
+  margin-top: 12px;
   opacity: 0;
   animation: text-enter 200ms cubic-bezier(0.16, 1, 0.3, 1) 180ms forwards;
 }
