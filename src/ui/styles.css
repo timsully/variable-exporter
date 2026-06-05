@@ -577,7 +577,7 @@ body {
 /*
  * SVG logo element animations
  *
- * .logo-flame  — candlelight sway + flicker
+ * .logo-flame  — candlelight sway (no opacity flicker — avoids perceived glow on white)
  *   Three-phase loop: lean left → lean right → centre
  *   Uses skewX + tiny scaleX so the tip moves more than the base
  *   Irregular timing via keyframe percentages so it never looks mechanical
@@ -587,11 +587,10 @@ body {
  */
 
 .logo-flame {
-  animation:
-    flame-sway   3.2s ease-in-out infinite,
-    flame-flicker 1.6s ease-in-out infinite;
+  animation: flame-sway 3.2s ease-in-out infinite;
   transform-box: fill-box;
   transform-origin: center bottom;
+  filter: none;
 }
 
 .logo-circle {
@@ -610,13 +609,6 @@ body {
   100% { transform: skewX(0deg)   scaleX(1);    }
 }
 
-@keyframes flame-flicker {
-  0%,  100% { opacity: 1;    }
-  22%        { opacity: 0.88; }
-  45%        { opacity: 0.95; }
-  60%        { opacity: 0.82; }
-  78%        { opacity: 0.93; }
-}
 
 @keyframes circle-breathe {
   0%, 100% { transform: scale(1);    }
