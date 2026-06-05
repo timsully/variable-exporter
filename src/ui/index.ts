@@ -4,21 +4,29 @@ import { generators } from '../generators/index';
 
 // ── Assets ───────────────────────────────────────────────────────────────────
 
-// SVG is rendered at 80px. The flame path gets:
-//   - a slow sway (scaleX 1→0.96→1, transform-origin center-bottom of the flame)
-//   - opacity flicker to simulate candlelight
-// The circle gets a soft purple glow pulse via filter
-const LOGO_SVG = `<svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+// viewBox is expanded to -8 -8 40 40 so the glow circle (r=18) has room and
+// is never cropped. The glow circle sits behind the dark circle in paint order.
+const LOGO_SVG = `<svg width="96" height="96" viewBox="-8 -8 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <defs>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+    <filter id="glow-blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+    </filter>
+    <filter id="flame-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="0.8" result="blur"/>
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
-  <circle cx="12" cy="12" r="12" fill="#2E2B2B" class="logo-circle"/>
-  <path class="logo-flame" style="transform-origin: 12px 18px;"
+
+  <!-- Glow ring behind the circle — animated by .logo-glow CSS class -->
+  <circle class="logo-glow" cx="12" cy="12" r="14" fill="#5e6ad2" filter="url(#glow-blur)" opacity="0.25"/>
+
+  <!-- Dark background circle -->
+  <circle class="logo-circle" cx="12" cy="12" r="12" fill="#2E2B2B"/>
+
+  <!-- Flame / torch path — animated by .logo-flame CSS class -->
+  <path class="logo-flame"
     d="M16.5 13.0597C16.5 14.4674 15.7452 15.6892 14.5839 16.4329V18H9.44516V16.4329C8.25484 15.6892 7.5 14.4674 7.5 13.0597C7.5 11.3598 9.96774 6.81796 11.2452 4.58687C11.3323 4.4275 11.5645 4.50718 11.5645 4.66655V11.3067C11.5645 11.5723 11.4194 11.7848 11.2161 11.9442C10.9258 12.1832 10.7516 12.5285 10.8097 12.9269C10.8677 13.405 11.3032 13.7769 11.8258 13.8565C12.5516 13.9362 13.1613 13.4316 13.1613 12.7941C13.1613 12.4754 13.0161 12.1832 12.7548 11.9707C12.5226 11.7848 12.3774 11.5458 12.3774 11.2802V4.66655C12.3774 4.50718 12.6097 4.45406 12.6968 4.58687C14.0032 6.81796 16.5 11.3598 16.5 13.0597Z"
-    fill="#F9F9F9" filter="url(#glow)"/>
+    fill="#F9F9F9" filter="url(#flame-glow)"/>
 </svg>`;
 
 // ── State ────────────────────────────────────────────────────────────────────

@@ -497,6 +497,7 @@ html, body {
   justify-content: center;
   gap: 14px;
   z-index: 200;
+  overflow: visible; /* never clip the glow that bleeds outside the logo */
   animation: splash-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -506,12 +507,13 @@ html, body {
 }
 
 .splash__logo {
-  width: 80px;
-  height: 80px;
+  width: 96px;
+  height: 96px;
+  overflow: visible; /* let the SVG glow bleed outside */
   animation: logo-enter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-/* The circle in the SVG is dark (#2E2B2B); add a subtle glow ring */
+/* Container — overflow:visible so the SVG glow (which extends beyond 96px) is never cropped */
 .splash__logo-ring {
   position: relative;
   width: 96px;
@@ -519,15 +521,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.splash__logo-ring::before {
-  content: '';
-  position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(94, 106, 210, 0.14) 0%, transparent 68%);
-  animation: glow-pulse 2.4s ease-in-out infinite;
+  overflow: visible;
 }
 
 .splash__name {
@@ -576,9 +570,16 @@ html, body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* .logo-glow is the blurred circle inside the SVG, behind the dark circle */
+.logo-glow {
+  animation: glow-pulse 2.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 @keyframes glow-pulse {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50%       { opacity: 1;   transform: scale(1.08); }
+  0%, 100% { opacity: 0.22; transform: scale(1);    }
+  50%       { opacity: 0.45; transform: scale(1.12); }
 }
 
 @keyframes dot-bounce {
