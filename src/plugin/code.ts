@@ -7,15 +7,20 @@ figma.showUI(__html__, { width: 480, height: 640, title: 'Variable Exporter' });
 
 figma.ui.onmessage = (msg: UIMessage) => {
   if (msg.type === 'ready') {
-    sendCollections();
+    sendCollections().catch((err: unknown) => {
+      const message = err instanceof Error ? err.message : String(err);
+      figma.ui.postMessage({ type: 'error', message } as PluginMessage);
+    });
   } else if (msg.type === 'close') {
     figma.closePlugin();
   }
 };
 
-function sendCollections() {
-  const collections = figma.variables.getLocalVariableCollections();
-  const allVariables = figma.variables.getLocalVariables();
+async function sendCollections() {
+  const [collections, allVariables] = await Promise.all([
+    figma.variables.getLocalVariableCollectionsAsync(),
+    figma.variables.getLocalVariablesAsync(),
+  ]);
   const variableMap = new Map(allVariables.map((v) => [v.id, v]));
 
   const serialized: SerializedCollection[] = collections.map((col) => ({
