@@ -2,8 +2,6 @@
 
 A Figma plugin that exports local variable collections as CSS custom properties, with an extensible generator architecture for adding more output formats in the future.
 
-![Variable Exporter icon](icon.svg)
-
 ---
 
 ## Features
@@ -141,4 +139,4 @@ After building, reload the plugin in Figma Desktop to pick up changes.
 
 ## Built by
 
-[Tutorial Tim](https://github.com/timsully) · Made with Claude Code
+[Tutorial Tim](https://github.com/timsully)
