@@ -432,9 +432,13 @@ function render() {
 // ── Height sync ──────────────────────────────────────────────────────────────
 
 function syncHeight() {
-  // Wait one frame so the browser has painted the new layout before measuring.
+  // Measure #app, not document.documentElement — html/body have height:100%
+  // which locks their scrollHeight to the current viewport size, so they never
+  // report less than the window height. #app has no fixed height and reflects
+  // the true content height.
   requestAnimationFrame(() => {
-    const h = document.documentElement.scrollHeight;
+    const app = document.getElementById('app');
+    const h = app ? app.scrollHeight : document.documentElement.scrollHeight;
     postMessage({ type: 'resize', height: h });
   });
 }
