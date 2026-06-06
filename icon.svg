@@ -1,58 +1,69 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <radialGradient id="bgGlow" cx="50%" cy="45%" r="55%">
-      <stop offset="0%" stop-color="#1c1a2e"/>
-      <stop offset="100%" stop-color="#0c0c0e"/>
+    <!-- Background: deep blue-black, lighter at top-left -->
+    <radialGradient id="bgGrad" cx="38%" cy="32%" r="70%">
+      <stop offset="0%"   stop-color="#13101f"/>
+      <stop offset="100%" stop-color="#080809"/>
     </radialGradient>
-    <radialGradient id="glowPurple" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#5e6ad2" stop-opacity="0.5"/>
-      <stop offset="100%" stop-color="#5e6ad2" stop-opacity="0"/>
+
+    <!-- Torch circle: subtle blue-purple depth gradient -->
+    <radialGradient id="circleGrad" cx="38%" cy="28%" r="72%">
+      <stop offset="0%"   stop-color="#2c2840"/>
+      <stop offset="100%" stop-color="#1a1726"/>
     </radialGradient>
-    <clipPath id="bounds">
-      <rect width="128" height="128" rx="24"/>
+
+    <!-- Purple bloom behind the circle -->
+    <filter id="bloom" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="14"/>
+    </filter>
+
+    <!-- Subtle inner glow on the circle edge -->
+    <filter id="edgeGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <clipPath id="rounded">
+      <rect width="128" height="128" rx="26"/>
     </clipPath>
   </defs>
 
   <!-- Background -->
-  <rect width="128" height="128" rx="24" fill="url(#bgGlow)"/>
+  <rect width="128" height="128" rx="26" fill="url(#bgGrad)"/>
 
-  <!-- Soft purple glow in the upper-center -->
-  <ellipse cx="64" cy="52" rx="52" ry="44" fill="url(#glowPurple)" clip-path="url(#bounds)"/>
+  <!-- Purple bloom — soft light source behind the torch -->
+  <circle cx="64" cy="50" r="54" fill="#5e6ad2" filter="url(#bloom)"
+          opacity="0.38" clip-path="url(#rounded)"/>
 
-  <!-- ── Design token (Figma side) ─────────────────────────
-       A diamond shape — the universal "token / variable" symbol in design tools -->
-  <rect x="14" y="50" width="22" height="22" rx="4" transform="rotate(45 25 61)" fill="#f0f0f2" opacity="0.95"/>
+  <!-- Outer halo ring — barely visible, gives depth -->
+  <circle cx="64" cy="52" r="42" stroke="#5e6ad2" stroke-width="1"
+          fill="none" opacity="0.18"/>
 
-  <!-- Inner dot of the token -->
-  <circle cx="25" cy="61" r="4" fill="#0c0c0e" opacity="0.5"/>
+  <!-- Torch circle — gradient for subtle 3-D depth -->
+  <circle cx="64" cy="52" r="36" fill="url(#circleGrad)" filter="url(#edgeGlow)"/>
 
-  <!-- ── Arrow (the transformation) ──────────────────────── -->
-  <!-- Shaft -->
-  <line x1="52" y1="61" x2="74" y2="61" stroke="#5e6ad2" stroke-width="2.5" stroke-linecap="round"/>
-  <!-- Head -->
-  <polyline points="69,55 75,61 69,67" stroke="#5e6ad2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-
-  <!-- ── CSS custom property (code side) ──────────────────
-       Two dashes  —  the -- prefix universally associated with CSS variables
-       Plus two abstract "value" bars beneath them -->
-
-  <!-- -- prefix: dash one -->
-  <rect x="84" y="48" width="14" height="4" rx="2" fill="#5e6ad2"/>
-  <!-- -- prefix: dash two -->
-  <rect x="100" y="48" width="14" height="4" rx="2" fill="#5e6ad2"/>
-
-  <!-- variable name bar -->
-  <rect x="84" y="58" width="24" height="3.5" rx="1.75" fill="#f0f0f2" opacity="0.7"/>
-  <!-- value bar (shorter) -->
-  <rect x="84" y="66" width="18" height="3.5" rx="1.75" fill="#f0f0f2" opacity="0.45"/>
-
-  <!-- Semicolon dot (subtle) -->
-  <circle cx="105" cy="58.75" r="1.5" fill="#5e6ad2" opacity="0.6"/>
-  <circle cx="105" cy="68.75" r="1.5" fill="#5e6ad2" opacity="0.5"/>
-
-  <!-- ── Tutorial Tim torch — small, bottom-right corner ── -->
-  <g transform="translate(80, 82) scale(1.6)" opacity="0.85">
-    <circle cx="12" cy="12" r="12" fill="#2E2B2B"/>
-    <path d="M16.5 13.0597C16.5 14.4674 15.7452 15.6892 14.5839 16.4329V18H9.44516V16.4329C8.25484 15.6892 7.5 14.4674 7.5 13.0597C7.5 11.3598 9.96774 6.81796 11.2452 4.58687C11.3323 4.4275 11.5645 4.50718 11.5645 4.66655V11.3067C11.5645 11.5723 11.4194 11.7848 11.2161 11.9442C10.9258 12.1832 10.7516 12.5285 10.8097 12.9269C10.8677 13.405 11.3032 13.7769 11.8258 13.8565C12.5516 13.9362 13.1613 13.4316 13.1613 12.7941C13.1613 12.4754 13.0161 12.1832 12.7548 11.9707C12.5226 11.7848 12.3774 11.5458 12.3774 11.2802V4.66655C12.3774 4.50718 12.6097 4.45406 12.6968 4.58687C14.0032 6.81796 16.5 11.3598 16.5 13.0597Z" fill="#F9F9F9"/>
+  <!-- Torch flame
+       Original: 24×24 viewBox, circle r=12 at (12,12)
+       Target:   r=36 at (64,52)   →   scale = 3,  translate = (64−36, 52−36) = (28, 16) -->
+  <g transform="translate(28,16) scale(3)">
+    <path
+      d="M16.5 13.0597C16.5 14.4674 15.7452 15.6892 14.5839 16.4329V18H9.44516V16.4329
+         C8.25484 15.6892 7.5 14.4674 7.5 13.0597C7.5 11.3598 9.96774 6.81796
+         11.2452 4.58687C11.3323 4.4275 11.5645 4.50718 11.5645 4.66655V11.3067
+         C11.5645 11.5723 11.4194 11.7848 11.2161 11.9442C10.9258 12.1832
+         10.7516 12.5285 10.8097 12.9269C10.8677 13.405 11.3032 13.7769
+         11.8258 13.8565C12.5516 13.9362 13.1613 13.4316 13.1613 12.7941
+         C13.1613 12.4754 13.0161 12.1832 12.7548 11.9707C12.5226 11.7848
+         12.3774 11.5458 12.3774 11.2802V4.66655C12.3774 4.50718 12.6097
+         4.45406 12.6968 4.58687C14.0032 6.81796 16.5 11.3598 16.5 13.0597Z"
+      fill="#f4f4f6"/>
   </g>
+
+  <!-- CSS -- accent — the two dashes that define a CSS custom property.
+       Centered at x=64, sitting in the space below the circle. -->
+  <rect x="46" y="100" width="14" height="4.5" rx="2.25" fill="#5e6ad2" opacity="0.9"/>
+  <rect x="66" y="100" width="14" height="4.5" rx="2.25" fill="#5e6ad2" opacity="0.9"/>
+
+  <!-- Tiny semicolon dot — nods to the ; that ends every CSS declaration -->
+  <circle cx="91" cy="102.25" r="2.25" fill="#5e6ad2" opacity="0.45"/>
 </svg>
