@@ -1,26 +1,19 @@
 <svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Background: deep blue-black, lighter at top-left -->
-    <radialGradient id="bgGrad" cx="38%" cy="32%" r="70%">
-      <stop offset="0%"   stop-color="#13101f"/>
-      <stop offset="100%" stop-color="#080809"/>
+    <radialGradient id="bg" cx="30%" cy="50%" r="75%">
+      <stop offset="0%"   stop-color="#111019"/>
+      <stop offset="100%" stop-color="#08080d"/>
     </radialGradient>
 
-    <!-- Torch circle: subtle blue-purple depth gradient -->
-    <radialGradient id="circleGrad" cx="38%" cy="28%" r="72%">
-      <stop offset="0%"   stop-color="#2c2840"/>
-      <stop offset="100%" stop-color="#1a1726"/>
+    <!-- Design token: purple sphere gradient -->
+    <radialGradient id="token" cx="35%" cy="30%" r="70%">
+      <stop offset="0%"   stop-color="#828de8"/>
+      <stop offset="100%" stop-color="#4752b8"/>
     </radialGradient>
 
-    <!-- Purple bloom behind the circle -->
-    <filter id="bloom" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="14"/>
-    </filter>
-
-    <!-- Subtle inner glow on the circle edge -->
-    <filter id="edgeGlow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    <!-- Soft bloom behind the token -->
+    <filter id="bloom" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10"/>
     </filter>
 
     <clipPath id="rounded">
@@ -29,41 +22,48 @@
   </defs>
 
   <!-- Background -->
-  <rect width="128" height="128" rx="26" fill="url(#bgGrad)"/>
+  <rect width="128" height="128" rx="26" fill="url(#bg)"/>
 
-  <!-- Purple bloom — soft light source behind the torch -->
-  <circle cx="64" cy="50" r="54" fill="#5e6ad2" filter="url(#bloom)"
-          opacity="0.38" clip-path="url(#rounded)"/>
+  <!-- Bloom glow behind the token -->
+  <circle cx="30" cy="64" r="26" fill="#5e6ad2"
+          filter="url(#bloom)" opacity="0.4" clip-path="url(#rounded)"/>
 
-  <!-- Outer halo ring — barely visible, gives depth -->
-  <circle cx="64" cy="52" r="42" stroke="#5e6ad2" stroke-width="1"
-          fill="none" opacity="0.18"/>
+  <!-- ── Design token ──────────────────────────────
+       A filled circle: the universal "variable / color token" symbol -->
+  <circle cx="30" cy="64" r="18" fill="url(#token)"/>
+  <!-- Inner specular highlight -->
+  <circle cx="24" cy="58" r="5" fill="#ffffff" opacity="0.18"/>
 
-  <!-- Torch circle — gradient for subtle 3-D depth -->
-  <circle cx="64" cy="52" r="36" fill="url(#circleGrad)" filter="url(#edgeGlow)"/>
+  <!-- ── Export arrow ──────────────────────────────
+       Thin, clean — connects token to code output -->
+  <line x1="52" y1="64" x2="71" y2="64"
+        stroke="#5e6ad2" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+  <polyline points="66,59 72,64 66,69"
+            stroke="#5e6ad2" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round"
+            fill="none" opacity="0.75"/>
 
-  <!-- Torch flame
-       Original: 24×24 viewBox, circle r=12 at (12,12)
-       Target:   r=36 at (64,52)   →   scale = 3,  translate = (64−36, 52−36) = (28, 16) -->
-  <g transform="translate(28,16) scale(3)">
-    <path
-      d="M16.5 13.0597C16.5 14.4674 15.7452 15.6892 14.5839 16.4329V18H9.44516V16.4329
-         C8.25484 15.6892 7.5 14.4674 7.5 13.0597C7.5 11.3598 9.96774 6.81796
-         11.2452 4.58687C11.3323 4.4275 11.5645 4.50718 11.5645 4.66655V11.3067
-         C11.5645 11.5723 11.4194 11.7848 11.2161 11.9442C10.9258 12.1832
-         10.7516 12.5285 10.8097 12.9269C10.8677 13.405 11.3032 13.7769
-         11.8258 13.8565C12.5516 13.9362 13.1613 13.4316 13.1613 12.7941
-         C13.1613 12.4754 13.0161 12.1832 12.7548 11.9707C12.5226 11.7848
-         12.3774 11.5458 12.3774 11.2802V4.66655C12.3774 4.50718 12.6097
-         4.45406 12.6968 4.58687C14.0032 6.81796 16.5 11.3598 16.5 13.0597Z"
-      fill="#f4f4f6"/>
-  </g>
+  <!-- ── CSS output ────────────────────────────────
+       Two variable declarations stacked, like a code snippet.
+       Each line: -- prefix (two purple bars) + name bar + value bar -->
 
-  <!-- CSS -- accent — the two dashes that define a CSS custom property.
-       Centered at x=64, sitting in the space below the circle. -->
-  <rect x="46" y="100" width="14" height="4.5" rx="2.25" fill="#5e6ad2" opacity="0.9"/>
-  <rect x="66" y="100" width="14" height="4.5" rx="2.25" fill="#5e6ad2" opacity="0.9"/>
+  <!-- Line 1: -- -->
+  <rect x="80" y="46" width="10" height="4" rx="2" fill="#5e6ad2"/>
+  <rect x="93" y="46" width="10" height="4" rx="2" fill="#5e6ad2"/>
+  <!-- Line 1: name bar -->
+  <rect x="80" y="55" width="35" height="4" rx="2" fill="#e0e0f0" opacity="0.75"/>
+  <!-- Line 1: value bar -->
+  <rect x="80" y="64" width="24" height="4" rx="2" fill="#e0e0f0" opacity="0.38"/>
 
-  <!-- Tiny semicolon dot — nods to the ; that ends every CSS declaration -->
-  <circle cx="91" cy="102.25" r="2.25" fill="#5e6ad2" opacity="0.45"/>
+  <!-- Divider -->
+  <line x1="80" y1="75" x2="115" y2="75"
+        stroke="#ffffff" stroke-width="1" opacity="0.06"/>
+
+  <!-- Line 2: -- -->
+  <rect x="80" y="82" width="10" height="4" rx="2" fill="#5e6ad2" opacity="0.7"/>
+  <rect x="93" y="82" width="10" height="4" rx="2" fill="#5e6ad2" opacity="0.7"/>
+  <!-- Line 2: name bar -->
+  <rect x="80" y="91" width="28" height="4" rx="2" fill="#e0e0f0" opacity="0.45"/>
+  <!-- Line 2: value bar -->
+  <rect x="80" y="100" width="18" height="4" rx="2" fill="#e0e0f0" opacity="0.22"/>
 </svg>
