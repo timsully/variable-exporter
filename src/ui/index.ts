@@ -30,12 +30,14 @@ const LOGO_SVG = `<svg width="120" height="120" viewBox="-8 -8 40 40" fill="none
 interface State {
   status: 'loading' | 'empty' | 'ready';
   collections: SerializedCollection[];
+  selectedFormat: string;
   options: ExportOptions;
 }
 
 const state: State = {
   status: 'loading',
   collections: [],
+  selectedFormat: 'css',
   options: {
     selectedCollections: [],
     colorFormat: 'hex',
@@ -74,8 +76,12 @@ window.onmessage = (event: MessageEvent) => {
 
 // ── Generators ───────────────────────────────────────────────────────────────
 
+function activeGenerator() {
+  return generators.find((g) => g.id === state.selectedFormat) ?? generators[0];
+}
+
 function getOutput(): string {
-  const gen = generators.find((g) => g.id === 'css') ?? generators[0];
+  const gen = activeGenerator();
   if (!gen || state.options.selectedCollections.length === 0) return '';
   return gen.generate(state.collections, state.options);
 }
@@ -298,7 +304,10 @@ function renderOptions(): HTMLElement {
 
   const grid = el('div', { className: 'options-grid' });
 
-  grid.appendChild(selectField('Format', 'css', generators.map((g) => ({ value: g.id, label: g.label })), () => render()));
+  grid.appendChild(selectField('Format', state.selectedFormat,
+    generators.map((g) => ({ value: g.id, label: g.label })),
+    (v) => { state.selectedFormat = v; render(); },
+  ));
 
   grid.appendChild(selectField('Colors', state.options.colorFormat,
     [{ value: 'hex', label: 'HEX' }, { value: 'rgb', label: 'RGB' }, { value: 'hsl', label: 'HSL' }],
@@ -310,14 +319,17 @@ function renderOptions(): HTMLElement {
     (v) => { state.options.numberUnit = v as ExportOptions['numberUnit']; render(); },
   ));
 
-  grid.appendChild(selectField('Modes', state.options.modeStrategy,
-    [
-      { value: 'first-only', label: 'First only' },
-      { value: 'data-attribute', label: 'data-theme attr' },
-      { value: 'class', label: 'CSS class' },
-    ],
-    (v) => { state.options.modeStrategy = v as ExportOptions['modeStrategy']; render(); },
-  ));
+  // Mode strategy only applies to CSS (SCSS/Less/JS don't support runtime theming)
+  if (state.selectedFormat === 'css') {
+    grid.appendChild(selectField('Modes', state.options.modeStrategy,
+      [
+        { value: 'first-only', label: 'First only' },
+        { value: 'data-attribute', label: 'data-theme attr' },
+        { value: 'class', label: 'CSS class' },
+      ],
+      (v) => { state.options.modeStrategy = v as ExportOptions['modeStrategy']; render(); },
+    ));
+  }
 
   grid.appendChild(textField('Variable prefix', state.options.prefix, 'e.g. ds-',
     (v) => { state.options.prefix = v; render(); },
@@ -350,11 +362,10 @@ function renderOutput(): HTMLElement {
     if (ok) flashButton(copyBtn as HTMLButtonElement, 'Copied!');
   });
 
-  const gen = generators.find((g) => g.id === 'css') ?? generators[0];
   const saveBtn = el('button', { className: 'btn btn--primary' }, 'Save');
   saveBtn.addEventListener('click', () => {
     if (!output) return;
-    downloadFile(output, gen?.fileExtension ?? 'txt');
+    downloadFile(output, activeGenerator()?.fileExtension ?? 'txt');
   });
 
   actions.appendChild(copyBtn);
