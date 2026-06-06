@@ -1,0 +1,307 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient: dark with a purple tint radiating from the left -->
+    <radialGradient id="bgMain" cx="28%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#131226"/>
+      <stop offset="60%" stop-color="#0d0d10"/>
+      <stop offset="100%" stop-color="#0a0a0c"/>
+    </radialGradient>
+
+    <!-- Torch glow -->
+    <radialGradient id="torchGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#5e6ad2" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#5e6ad2" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Code card gradient -->
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#18181c"/>
+      <stop offset="100%" stop-color="#111113"/>
+    </linearGradient>
+
+    <!-- Subtle horizontal rule gradient -->
+    <linearGradient id="ruleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5e6ad2" stop-opacity="0"/>
+      <stop offset="30%" stop-color="#5e6ad2" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#5e6ad2" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#5e6ad2" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Noise / grain overlay — subtle dot grid -->
+    <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="0.75" fill="#ffffff" opacity="0.025"/>
+    </pattern>
+
+    <filter id="softBlur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+    <filter id="tinyBlur">
+      <feGaussianBlur stdDeviation="1.5"/>
+    </filter>
+  </defs>
+
+  <!-- ── Background ───────────────────────────────────────── -->
+  <rect width="1920" height="1080" fill="url(#bgMain)"/>
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+
+  <!-- Large purple ambient glow behind the torch area -->
+  <ellipse cx="480" cy="540" rx="520" ry="440" fill="url(#torchGlow)" filter="url(#softBlur)"/>
+
+  <!-- Faint vertical divider between left content and right code card -->
+  <line x1="960" y1="80" x2="960" y2="1000" stroke="#ffffff" stroke-width="1" opacity="0.04"/>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       LEFT SIDE — branding + headline
+       ══════════════════════════════════════════════════════ -->
+
+  <!-- Tutorial Tim torch logo — large, centered on left half -->
+  <!-- Scaled from 24x24 viewBox to ~240x240, centered at (420, 440) -->
+  <!-- Scale = 10, offset = center - 12*10 = center - 120 -->
+  <!-- cx = 420 - 120 = 300, cy = 440 - 120 = 320 -->
+  <g transform="translate(300, 310) scale(10)" opacity="0.95">
+    <!-- Purple glow circle behind the torch -->
+    <circle cx="12" cy="12" r="16" fill="#5e6ad2" filter="url(#tinyBlur)" opacity="0.3"/>
+    <!-- Dark background circle -->
+    <circle cx="12" cy="12" r="12" fill="#2E2B2B"/>
+    <!-- Torch flame -->
+    <path d="M16.5 13.0597C16.5 14.4674 15.7452 15.6892 14.5839 16.4329V18H9.44516V16.4329C8.25484 15.6892 7.5 14.4674 7.5 13.0597C7.5 11.3598 9.96774 6.81796 11.2452 4.58687C11.3323 4.4275 11.5645 4.50718 11.5645 4.66655V11.3067C11.5645 11.5723 11.4194 11.7848 11.2161 11.9442C10.9258 12.1832 10.7516 12.5285 10.8097 12.9269C10.8677 13.405 11.3032 13.7769 11.8258 13.8565C12.5516 13.9362 13.1613 13.4316 13.1613 12.7941C13.1613 12.4754 13.0161 12.1832 12.7548 11.9707C12.5226 11.7848 12.3774 11.5458 12.3774 11.2802V4.66655C12.3774 4.50718 12.6097 4.45406 12.6968 4.58687C14.0032 6.81796 16.5 11.3598 16.5 13.0597Z" fill="#F9F9F9"/>
+  </g>
+
+  <!-- "Variable Exporter" headline -->
+  <text x="132" y="690"
+    font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif"
+    font-size="72" font-weight="700" letter-spacing="-2"
+    fill="#f0f0f2">Variable Exporter</text>
+
+  <!-- Accent rule under the headline -->
+  <rect x="132" y="706" width="480" height="3" rx="1.5" fill="url(#ruleGrad)"/>
+
+  <!-- Subtitle -->
+  <text x="132" y="762"
+    font-family="-apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif"
+    font-size="28" font-weight="400" letter-spacing="-0.3"
+    fill="#9898a6">Export Figma variable collections as CSS custom properties</text>
+
+  <!-- Feature pills -->
+  <!-- Pill 1 -->
+  <rect x="132" y="810" width="170" height="38" rx="19" fill="#1c1c2a" stroke="#5e6ad2" stroke-width="1.5" stroke-opacity="0.6"/>
+  <text x="217" y="834"
+    font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif"
+    font-size="15" font-weight="500" fill="#9898a6" text-anchor="middle">CSS Variables</text>
+
+  <!-- Pill 2 -->
+  <rect x="314" y="810" width="148" height="38" rx="19" fill="#1c1c2a" stroke="#5e6ad2" stroke-width="1.5" stroke-opacity="0.4"/>
+  <text x="388" y="834"
+    font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif"
+    font-size="15" font-weight="500" fill="#9898a6" text-anchor="middle">Multi-mode</text>
+
+  <!-- Pill 3 -->
+  <rect x="474" y="810" width="168" height="38" rx="19" fill="#1c1c2a" stroke="#5e6ad2" stroke-width="1.5" stroke-opacity="0.4"/>
+  <text x="558" y="834"
+    font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif"
+    font-size="15" font-weight="500" fill="#9898a6" text-anchor="middle">HEX / RGB / HSL</text>
+
+  <!-- Tutorial Tim label -->
+  <text x="132" y="952"
+    font-family="-apple-system, BlinkMacSystemFont, 'Inter', sans-serif"
+    font-size="18" font-weight="500" fill="#5c5c6c">by Tutorial Tim</text>
+
+
+  <!-- ══════════════════════════════════════════════════════
+       RIGHT SIDE — code output card
+       ══════════════════════════════════════════════════════ -->
+
+  <!-- Card background -->
+  <rect x="1020" y="120" width="820" height="840" rx="16" fill="url(#cardGrad)" stroke="#2a2a2f" stroke-width="1.5"/>
+
+  <!-- Card top bar -->
+  <rect x="1020" y="120" width="820" height="56" rx="16" fill="#1a1a1e"/>
+  <rect x="1020" y="148" width="820" height="28" fill="#1a1a1e"/>
+
+  <!-- Traffic light dots -->
+  <circle cx="1062" cy="148" r="7" fill="#ff5f57"/>
+  <circle cx="1086" cy="148" r="7" fill="#febc2e"/>
+  <circle cx="1110" cy="148" r="7" fill="#28c840"/>
+
+  <!-- File tab label -->
+  <text x="1168" y="153"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="14" fill="#6e6e7a">variables.css</text>
+
+  <!-- Separator line under tab bar -->
+  <line x1="1020" y1="176" x2="1840" y2="176" stroke="#2a2a2f" stroke-width="1"/>
+
+  <!-- ── CSS code content ────────────────────────────── -->
+  <!-- Line numbers + code, monospace, with syntax tinting -->
+
+  <!-- Comment line -->
+  <text x="1064" y="228"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#4a4a5a">/* Colors */</text>
+
+  <!-- :root { -->
+  <text x="1064" y="270"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#79c0ff">:root</text>
+  <text x="1164" y="270"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9"> {</text>
+
+  <!-- --color-primary -->
+  <text x="1096" y="312"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#d2a8ff">--color-primary</text>
+  <text x="1348" y="312"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">: </text>
+  <text x="1376" y="312"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#a5d6ff">#5e6ad2</text>
+  <text x="1484" y="312"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">;</text>
+  <!-- color swatch -->
+  <rect x="1504" y="298" width="14" height="14" rx="3" fill="#5e6ad2"/>
+
+  <!-- --color-surface -->
+  <text x="1096" y="354"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#d2a8ff">--color-surface</text>
+  <text x="1344" y="354"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">: </text>
+  <text x="1372" y="354"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#a5d6ff">#141415</text>
+  <text x="1480" y="354"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">;</text>
+  <rect x="1500" y="340" width="14" height="14" rx="3" fill="#141415" stroke="#3a3a3f" stroke-width="1"/>
+
+  <!-- --color-text -->
+  <text x="1096" y="396"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#d2a8ff">--color-text</text>
+  <text x="1294" y="396"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">: </text>
+  <text x="1322" y="396"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#a5d6ff">#f0f0f2</text>
+  <text x="1430" y="396"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">;</text>
+  <rect x="1450" y="382" width="14" height="14" rx="3" fill="#f0f0f2"/>
+
+  <!-- closing } + blank line -->
+  <text x="1064" y="438"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">}</text>
+
+  <!-- Comment line 2 -->
+  <text x="1064" y="494"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#4a4a5a">/* Spacing */</text>
+
+  <!-- :root { -->
+  <text x="1064" y="536"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#79c0ff">:root</text>
+  <text x="1164" y="536"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9"> {</text>
+
+  <!-- --spacing-1 -->
+  <text x="1096" y="578"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#d2a8ff">--spacing-1</text>
+  <text x="1272" y="578"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">: </text>
+  <text x="1300" y="578"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#79c0ff">4px</text>
+  <text x="1358" y="578"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">;</text>
+
+  <!-- --spacing-4 -->
+  <text x="1096" y="620"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#d2a8ff">--spacing-4</text>
+  <text x="1272" y="620"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">: </text>
+  <text x="1300" y="620"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#79c0ff">16px</text>
+  <text x="1368" y="620"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">;</text>
+
+  <!-- --spacing-8 -->
+  <text x="1096" y="662"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#d2a8ff">--spacing-8</text>
+  <text x="1272" y="662"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">: </text>
+  <text x="1300" y="662"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#79c0ff">32px</text>
+  <text x="1368" y="662"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">;</text>
+
+  <!-- closing } -->
+  <text x="1064" y="704"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">}</text>
+
+  <!-- Dark mode block -->
+  <text x="1064" y="760"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#4a4a5a">/* Dark mode */</text>
+
+  <text x="1064" y="802"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#6e7681">[</text>
+  <text x="1082" y="802"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#79c0ff">data-theme</text>
+  <text x="1218" y="802"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#6e7681">="</text>
+  <text x="1258" y="802"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#a5d6ff">dark</text>
+  <text x="1306" y="802"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#6e7681">"]</text>
+  <text x="1348" y="802"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9"> {</text>
+
+  <text x="1096" y="844"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#d2a8ff">--color-primary</text>
+  <text x="1348" y="844"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">: </text>
+  <text x="1376" y="844"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#a5d6ff">#4f5bbf</text>
+  <text x="1484" y="844"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">;</text>
+  <rect x="1504" y="830" width="14" height="14" rx="3" fill="#4f5bbf"/>
+
+  <text x="1064" y="886"
+    font-family="'JetBrains Mono', 'Fira Code', ui-monospace, monospace"
+    font-size="17" fill="#c9d1d9">}</text>
+
+  <!-- Cursor blink indicator -->
+  <rect x="1096" y="908" width="10" height="20" rx="1" fill="#5e6ad2" opacity="0.8"/>
+
+</svg>
