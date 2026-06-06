@@ -436,6 +436,10 @@ body {
   margin-bottom: 8px;
 }
 
+.collections-header .section__label {
+  margin-bottom: 0;
+}
+
 .btn-link {
   font-size: 11px;
   color: var(--accent);
