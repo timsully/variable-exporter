@@ -306,7 +306,11 @@ function renderOptions(): HTMLElement {
 
   grid.appendChild(selectField('Format', state.selectedFormat,
     generators.map((g) => ({ value: g.id, label: g.label })),
-    (v) => { state.selectedFormat = v; render(); },
+    (v) => {
+      state.selectedFormat = v;
+      if (v !== 'css') state.options.modeStrategy = 'first-only';
+      render();
+    },
   ));
 
   grid.appendChild(selectField('Colors', state.options.colorFormat,

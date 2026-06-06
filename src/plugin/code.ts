@@ -37,10 +37,13 @@ async function sendCollections() {
         for (const [modeId, raw] of Object.entries(v.valuesByMode)) {
           valuesByMode[modeId] = serializeValue(raw, variableMap);
         }
+        const resolvedType = v.resolvedType;
+        if (resolvedType !== 'COLOR' && resolvedType !== 'FLOAT' &&
+            resolvedType !== 'STRING' && resolvedType !== 'BOOLEAN') return null;
         return {
           id: v.id,
           name: v.name,
-          resolvedType: v.resolvedType as 'COLOR' | 'FLOAT' | 'STRING' | 'BOOLEAN',
+          resolvedType,
           valuesByMode,
         };
       })
