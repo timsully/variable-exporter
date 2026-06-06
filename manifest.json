@@ -1,6 +1,6 @@
 {
   "name": "Variable Exporter",
-  "id": "variable-exporter-dev",
+  "id": "1644983660579229902",
   "api": "1.0.0",
   "main": "dist/code.js",
   "ui": "dist/ui.html",
