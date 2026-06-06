@@ -379,6 +379,7 @@ function renderOutput(): HTMLElement {
   container.style.flexDirection = 'column';
   container.style.flex = '1';
   container.style.minHeight = '0';
+  container.style.background = 'var(--bg-app)';
   container.appendChild(header);
   container.appendChild(pane);
   return container;

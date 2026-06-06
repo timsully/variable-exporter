@@ -60,12 +60,13 @@
 html,
 body {
   height: 100%;
-  background: #0f0f10; /* hard-coded — no variable needed here, must not be transparent */
+  background: #0f0f10;
 }
 
 body {
   width: 480px;
-  overflow: hidden;
+  /* no overflow:hidden — that can create a containing block that prevents
+     position:fixed from being viewport-relative in some webviews */
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 13px;
@@ -117,6 +118,7 @@ body {
 .section {
   padding: 12px 16px;
   border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-app);
 }
 
 .section__label {
@@ -281,6 +283,7 @@ body {
   padding: 10px 16px 8px;
   border-bottom: 1px solid var(--border-subtle);
   flex-shrink: 0;
+  background: var(--bg-app);
 }
 
 .output-header .section__label {
