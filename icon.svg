@@ -1,0 +1,32 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="7"/>
+    </filter>
+    <clipPath id="roundedSquare">
+      <rect width="128" height="128" rx="28"/>
+    </clipPath>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="128" height="128" rx="28" fill="#111113"/>
+
+  <!-- Purple glow behind the circle -->
+  <circle cx="64" cy="64" r="46" fill="#5e6ad2" filter="url(#glow)" opacity="0.35" clip-path="url(#roundedSquare)"/>
+
+  <!-- Dark circle (Tutorial Tim origin) — r=40, scaled from original r=12 -->
+  <circle cx="64" cy="64" r="40" fill="#2E2B2B"/>
+
+  <!-- Torch / flame path
+       Original viewBox: 0 0 24 24, circle r=12 at (12,12)
+       Scale to r=40: factor = 40/12 = 3.3333
+       Translate so (12,12) maps to (64,64): offset = 64 - 12×3.333 = 24
+       Transform: translate(24,24) scale(3.3333)
+  -->
+  <g transform="translate(24,24) scale(3.3333)">
+    <path
+      d="M16.5 13.0597C16.5 14.4674 15.7452 15.6892 14.5839 16.4329V18H9.44516V16.4329C8.25484 15.6892 7.5 14.4674 7.5 13.0597C7.5 11.3598 9.96774 6.81796 11.2452 4.58687C11.3323 4.4275 11.5645 4.50718 11.5645 4.66655V11.3067C11.5645 11.5723 11.4194 11.7848 11.2161 11.9442C10.9258 12.1832 10.7516 12.5285 10.8097 12.9269C10.8677 13.405 11.3032 13.7769 11.8258 13.8565C12.5516 13.9362 13.1613 13.4316 13.1613 12.7941C13.1613 12.4754 13.0161 12.1832 12.7548 11.9707C12.5226 11.7848 12.3774 11.5458 12.3774 11.2802V4.66655C12.3774 4.50718 12.6097 4.45406 12.6968 4.58687C14.0032 6.81796 16.5 11.3598 16.5 13.0597Z"
+      fill="#F9F9F9"
+    />
+  </g>
+</svg>
