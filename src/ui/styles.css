@@ -60,7 +60,7 @@
 html,
 body {
   height: 100%;
-  background: var(--bg-app);
+  background: #0f0f10; /* hard-coded — no variable needed here, must not be transparent */
 }
 
 body {
@@ -109,6 +109,7 @@ body {
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--border-default) transparent;
+  background: var(--bg-app);
 }
 
 /* ── Sections ───────────────────────────────────────────── */
@@ -339,6 +340,7 @@ body {
   scrollbar-width: thin;
   scrollbar-color: var(--border-default) transparent;
   min-height: 180px;
+  background: var(--bg-app);
 }
 
 .output-code {
@@ -374,6 +376,7 @@ body {
   padding: 32px 16px;
   text-align: center;
   gap: 8px;
+  background: var(--bg-app);
 }
 
 .state-view__icon {

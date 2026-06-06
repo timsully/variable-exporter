@@ -437,5 +437,11 @@ function hideSplash(then: () => void) {
 
 // ── Boot ─────────────────────────────────────────────────────────────────────
 
+// Hard-set the background at runtime so no webview default or injected
+// stylesheet can override it after our CSS loads.
+const BG = '#0f0f10';
+document.documentElement.style.background = BG;
+document.body.style.background = BG;
+
 showSplash();
 postMessage({ type: 'ready' });
