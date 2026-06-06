@@ -377,8 +377,6 @@ function renderOutput(): HTMLElement {
   const container = el('div', { className: 'output-section' });
   container.style.display = 'flex';
   container.style.flexDirection = 'column';
-  container.style.flex = '1';
-  container.style.minHeight = '0';
   container.style.background = 'var(--bg-app)';
   container.appendChild(header);
   container.appendChild(pane);
@@ -401,19 +399,29 @@ function render() {
 
   if (state.status === 'empty') {
     app.appendChild(renderEmpty());
+    syncHeight();
     return;
   }
 
   // Scrollable config area
   const scroll = el('div', { className: 'scrollable' });
-  scroll.style.flex = '0 0 auto';
   scroll.style.maxHeight = '300px';
   scroll.appendChild(renderCollections());
   scroll.appendChild(renderOptions());
   app.appendChild(scroll);
 
-  // Output fills remaining space
   app.appendChild(renderOutput());
+  syncHeight();
+}
+
+// ── Height sync ──────────────────────────────────────────────────────────────
+
+function syncHeight() {
+  // Wait one frame so the browser has painted the new layout before measuring.
+  requestAnimationFrame(() => {
+    const h = document.documentElement.scrollHeight;
+    postMessage({ type: 'resize', height: h });
+  });
 }
 
 // ── Splash transition ─────────────────────────────────────────────────────────

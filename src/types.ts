@@ -31,7 +31,7 @@ export interface SerializedCollection {
   variables: SerializedVariable[];
 }
 
-export type UIMessage = { type: 'ready' } | { type: 'close' };
+export type UIMessage = { type: 'ready' } | { type: 'close' } | { type: 'resize'; height: number };
 
 export type PluginMessage =
   | { type: 'collections-data'; collections: SerializedCollection[] }

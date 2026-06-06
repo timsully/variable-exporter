@@ -11,6 +11,8 @@ figma.ui.onmessage = (msg: UIMessage) => {
       const message = err instanceof Error ? err.message : String(err);
       figma.ui.postMessage({ type: 'error', message } as PluginMessage);
     });
+  } else if (msg.type === 'resize') {
+    figma.ui.resize(480, Math.round(Math.max(200, Math.min(900, msg.height))));
   } else if (msg.type === 'close') {
     figma.closePlugin();
   }
