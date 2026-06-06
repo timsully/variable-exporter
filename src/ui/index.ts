@@ -414,7 +414,6 @@ function render() {
 
   if (state.status === 'empty') {
     app.appendChild(renderEmpty());
-    syncHeight();
     return;
   }
 
@@ -426,21 +425,19 @@ function render() {
   app.appendChild(scroll);
 
   app.appendChild(renderOutput());
-  syncHeight();
 }
 
-// ── Height sync ──────────────────────────────────────────────────────────────
-
-function syncHeight() {
-  // Measure #app, not document.documentElement — html/body have height:100%
-  // which locks their scrollHeight to the current viewport size, so they never
-  // report less than the window height. #app has no fixed height and reflects
-  // the true content height.
-  requestAnimationFrame(() => {
-    const app = document.getElementById('app');
-    const h = app ? app.scrollHeight : document.documentElement.scrollHeight;
-    postMessage({ type: 'resize', height: h });
-  });
+// ── Height sync via ResizeObserver ───────────────────────────────────────────
+// ResizeObserver fires whenever #app's actual rendered size changes — no
+// manual calls needed and no requestAnimationFrame timing dependency.
+// Installed once at boot; responds automatically to every render.
+function installHeightObserver() {
+  const app = document.getElementById('app');
+  if (!app) return;
+  new ResizeObserver((entries) => {
+    const h = Math.ceil((entries[0]?.target as HTMLElement).getBoundingClientRect().height);
+    if (h > 0) postMessage({ type: 'resize', height: h });
+  }).observe(app);
 }
 
 // ── Splash transition ─────────────────────────────────────────────────────────
@@ -471,5 +468,6 @@ const BG = '#0f0f10';
 document.documentElement.style.background = BG;
 document.body.style.background = BG;
 
+installHeightObserver();
 showSplash();
 postMessage({ type: 'ready' });
